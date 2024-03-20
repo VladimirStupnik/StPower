@@ -2,7 +2,6 @@ package model;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,9 +22,6 @@ public enum RomanNumber {
 
     public int getValue() {
         return value;
-    }
-    public void setValue(int value) {
-        this.value = value;
     }
 
     public static List<RomanNumber> getReverseSortedValues() {
@@ -60,11 +56,14 @@ public enum RomanNumber {
         if ((number <= 0) || (number > 4000)) {
             throw new IllegalArgumentException(number + " is not in range (0,4000]");
         }
-        List<RomanNumber> romanNumbers = RomanNumber.getReverseSortedValues();
+
+        List<RomanNumber> romanNumerals = RomanNumber.getReverseSortedValues();
+
         int i = 0;
         StringBuilder sb = new StringBuilder();
-        while ((number > 0) && (i < romanNumbers.size())) {
-            RomanNumber currentSymbol = romanNumbers.get(i);
+
+        while ((number > 0) && (i < romanNumerals.size())) {
+            RomanNumber currentSymbol = romanNumerals.get(i);
             if (currentSymbol.getValue() <= number) {
                 sb.append(currentSymbol.name());
                 number -= currentSymbol.getValue();
@@ -74,8 +73,6 @@ public enum RomanNumber {
         }
         return sb.toString();
     }
-
-
 }
 
 

@@ -10,12 +10,15 @@ import java.util.function.Predicate;
 
 public class Program {
     public static void main(String[] args) {
-        /*Scanner sc = new Scanner(System.in);
-        int calculator = Calculator.calculator(sc.toString());
-        System.out.println(calculator);*/
-        String calculator = Calculator.calculator("dccc-dC");
+        /*String calculator = Calculator.calculator("10/5");
         System.out.println(calculator);
-        String xc = RomanNumber.arabicToRoman(888);
-        System.out.println(xc);
+        int i = RomanNumber.romanToArabic("XII");
+        System.out.println(i);
+        String s = RomanNumber.arabicToRoman(322);
+        System.out.println(s);*/
+        Scanner sc = new Scanner(System.in);
+        String res = sc.nextLine();
+        String calculatorRoman = Calculator.calculator(res);
+        System.out.println(calculatorRoman);
     }
 }
