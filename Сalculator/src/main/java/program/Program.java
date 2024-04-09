@@ -17,6 +17,7 @@ public class Program {
         String s = RomanNumber.arabicToRoman(322);
         System.out.println(s);*/
         Scanner sc = new Scanner(System.in);
+        System.out.println("Введите выражение: ");
         String res = sc.nextLine();
         String calculatorRoman = Calculator.calculator(res);
         System.out.println(calculatorRoman);

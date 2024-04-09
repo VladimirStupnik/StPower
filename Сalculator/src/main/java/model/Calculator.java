@@ -1,61 +1,57 @@
 package model;
 
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.Arrays;
+import java.util.HashMap;
 
 public class Calculator {
 
     public static String calculator(String input) {
-        String res = "";
-
-        String[] split1 = input.split("[+*/\\-]");
-        if (StringUtils.isNumeric(split1[0]) && StringUtils.isNumeric(split1[1]))  {
-            if (input.contains("-")) {
-                int digit = Integer.parseInt(split1[0]);
-                int digit2 = Integer.parseInt(split1[1]);
-                res = String.valueOf(digit - digit2);
-            } else if (input.contains("+")) {
-                int digit = Integer.parseInt(split1[0]);
-                int digit2 = Integer.parseInt(split1[1]);
-                res = String.valueOf(digit + digit2);
-            } else if (input.contains("*")) {
-                int digit = Integer.parseInt(split1[0]);
-                int digit2 = Integer.parseInt(split1[1]);
-                res = String.valueOf(digit * digit2);
-            } else if (input.contains("/")) {
-                int digit = Integer.parseInt(split1[0]);
-                int digit2 = Integer.parseInt(split1[1]);
-                res = String.valueOf(digit / digit2);
+        Converter converter = new Converter();
+        String[] actions = {" + "," - "," * "," / "};
+        String[] regIndex = {" \\+ "," - ", " \\* "," / "};
+        int actionIndex = -1;
+        int res = 0;
+        for (int i = 0; i < actions.length; i++) {
+            if(input.contains(actions[i])){
+                actionIndex = i;
+                break;
             }
-        } else if(Arrays.stream(RomanNumber.values()).anyMatch(romanNumber -> romanNumber.toString().equals(split1[0])) &&
-                Arrays.stream(RomanNumber.values()).anyMatch(romanNumber -> romanNumber.toString().equals(split1[1]))){
-            if (input.contains("-")) {
-                int digit = RomanNumber.romanToArabic(split1[0]);
-                int digit2 = RomanNumber.romanToArabic(split1[1]);
-                res = RomanNumber.arabicToRoman(digit - digit2);
-            } else if (input.contains("+")) {
-                int digit = RomanNumber.romanToArabic(split1[0]);
-                int digit2 = RomanNumber.romanToArabic(split1[1]);
-                res = RomanNumber.arabicToRoman(digit + digit2);
-            } else if (input.contains("*")) {
-                int digit = RomanNumber.romanToArabic(split1[0]);
-                int digit2 = RomanNumber.romanToArabic(split1[1]);
-                res = RomanNumber.arabicToRoman(digit * digit2);
-            } else if (input.contains("/")) {
-                int digit = RomanNumber.romanToArabic(split1[0]);
-                int digit2 = RomanNumber.romanToArabic(split1[1]);
-                res = RomanNumber.arabicToRoman(digit/digit2);
+        }
+        if(actionIndex == -1){
+            System.out.println("Некорректное выражение");
+        }
+        String[] split = input.split(regIndex[actionIndex]);
+        if(converter.isRoman(split[0]) == converter.isRoman(split[1])){
+            int a,b;
+            boolean roman = converter.isRoman(split[0]);
+            if(roman){
+                a = converter.romanToArabic(split[0]);
+                b = converter.romanToArabic(split[1]);
+            } else {
+
+                a = Integer.parseInt(split[0]);
+                b = Integer.parseInt(split[1]);
+            }
+            switch (actions[actionIndex]){
+                case " + ":
+                    res = a+b;
+                    break;
+                case " - ":
+                    res = a-b;
+                    break;
+                case " * ":
+                    res = a * b;
+                    break;
+                default:
+                    res = a / b;
+                    break;
+            }
+            if(roman){
+                return converter.arabicToRoman(res);
             }
         } else {
-            throw new IllegalArgumentException(input + " wrong argument");
+            System.out.println("Числа должны быть в одном формате");
         }
-        return res;
+        return String.valueOf(res);
     }
 }
-
-
-
-
-
 
