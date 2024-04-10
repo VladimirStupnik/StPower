@@ -19,7 +19,11 @@ public class Program {
         Scanner sc = new Scanner(System.in);
         System.out.println("Введите выражение: ");
         String res = sc.nextLine();
-        String calculatorRoman = Calculator.calculator(res);
-        System.out.println(calculatorRoman);
+        try {
+            String calculatorRoman = Calculator.calculator(res);
+            System.out.println(calculatorRoman);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

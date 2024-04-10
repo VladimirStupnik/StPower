@@ -17,7 +17,7 @@ public class Calculator {
             }
         }
         if(actionIndex == -1){
-            System.out.println("Некорректное выражение");
+            throw new IllegalArgumentException("Incorrect expression");
         }
         String[] split = input.split(regIndex[actionIndex]);
         if(converter.isRoman(split[0]) == converter.isRoman(split[1])){
@@ -30,6 +30,9 @@ public class Calculator {
 
                 a = Integer.parseInt(split[0]);
                 b = Integer.parseInt(split[1]);
+            }
+            if(a > 10 || b > 10){
+                throw new IllegalArgumentException("Number is greater than 10");
             }
             switch (actions[actionIndex]){
                 case " + ":
@@ -49,7 +52,7 @@ public class Calculator {
                 return converter.arabicToRoman(res);
             }
         } else {
-            System.out.println("Числа должны быть в одном формате");
+            throw new IllegalArgumentException("Numbers must be in the same format");
         }
         return String.valueOf(res);
     }
