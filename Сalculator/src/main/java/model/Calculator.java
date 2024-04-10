@@ -34,6 +34,9 @@ public class Calculator {
             if(a > 10 || b > 10){
                 throw new IllegalArgumentException("Number is greater than 10");
             }
+            if (split.length > 2) {
+                throw new IllegalArgumentException("It is possible to calculate only two digits");
+            }
             switch (actions[actionIndex]){
                 case " + ":
                     res = a+b;
